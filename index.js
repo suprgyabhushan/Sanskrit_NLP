@@ -7,7 +7,7 @@ import log from 'electron-log'
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
-log.info('Starting SNSKRT DICT');
+log.info('Starting sanskrit DICT');
 
 const app = electron.app;
 const browserWindow = electron.BrowserWindow;

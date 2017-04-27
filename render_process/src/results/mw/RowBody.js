@@ -58,7 +58,7 @@ const RowBody = React.createClass({
             },
             's': function(node, children, index) {
                 return <Sanskrit
-                    key={'snskrt_' + index}
+                    key={'sanskrit_' + index}
                     transFrom={_this.props.transFrom}
                     transTo={_this.props.transTo}>
                     {children()}

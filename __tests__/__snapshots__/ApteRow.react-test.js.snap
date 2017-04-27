@@ -117,7 +117,7 @@ exports[`test renders bold text 2`] = `
           ]
         }>
         <span
-          className="snskrt">
+          className="sanskrit">
           <span>
             <span>
               tasyākaraṇir evāstu
@@ -136,7 +136,7 @@ exports[`test renders bold text 3`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <strong
             textProcessors={
@@ -182,7 +182,7 @@ exports[`test renders sanskrit text 1`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             tasyākaraṇir evāstu

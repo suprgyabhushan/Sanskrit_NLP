@@ -11,7 +11,7 @@ const Sanskrit = React.createClass({
             text = text.replace(/[\/\^\\]/g, ''); // accent characters
             return Transcoder.process(text, _this.props.transFrom, _this.props.transTo)
         };
-        return <span className="snskrt">
+        return <span className="sanskrit">
             <TextProcessor textProcessors={[process]}>{this.props.children}</TextProcessor>
         </span>
     }

@@ -227,7 +227,7 @@ exports[`test removes accents 2`] = `
         </span>
       </span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -442,7 +442,7 @@ exports[`test renders equality symbol 1`] = `
         </span>
       </span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -621,7 +621,7 @@ exports[`test renders indological words 1`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -641,7 +641,7 @@ exports[`test renders indological words 2`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -825,7 +825,7 @@ exports[`test renders parenthesis 1`] = `
       <span>
         (
         <span
-          className="snskrt">
+          className="sanskrit">
           <span>
             <span>
               <span>
@@ -862,7 +862,7 @@ exports[`test renders parenthesis 2`] = `
           <span>
             (
             <span
-              className="snskrt">
+              className="sanskrit">
               <span>
                 <span>
                   <span>
@@ -997,7 +997,7 @@ exports[`test renders root element 1`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -1026,7 +1026,7 @@ exports[`test renders sanskrit text 1`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -1133,7 +1133,7 @@ exports[`test renders single replacement sandhi 1`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>
@@ -1160,7 +1160,7 @@ exports[`test renders single replacement sandhi 2`] = `
   <span>
     <span>
       <span
-        className="snskrt">
+        className="sanskrit">
         <span>
           <span>
             <span>

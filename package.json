@@ -1,14 +1,14 @@
 {
-  "name": "snskrt-desktop-dict",
-  "productName": "SNSKRT DICT",
+  "name": "sanskrit-desktop-dict",
+  "productName": "sanskrit DICT",
   "description": "Desktop Sanskrit-English Dictionary",
   "author": {
-    "name": "Dan Kocherga",
-    "email": "dan.kocherga@gmail.com"
+    "name": "Gaurav Koley",
+    "email": "gaurav.koley@iiitb.org"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:snskrt/desktop-dict.git"
+    "url": "git@github.com:arkokoley/sandhi-splitter.git"
   },
   "version": "1.0.0",
   "main": "bootstrap.js",
@@ -53,16 +53,16 @@
     "electron-log": "^2.0.2"
   },
   "build": {
-    "appId": "com.snskrt.dict",
+    "appId": "com.sanskrit.dict",
     "mac": {
       "category": "public.app-category.education"
     },
     "dmg": {
       "title": "${productName}",
-      "artifactName":"snskrt.${ext}"
+      "artifactName":"sanskrit.${ext}"
     },
     "nsis": {
-      "artifactName":"snskrt.${ext}"
+      "artifactName":"sanskrit.${ext}"
     }
   },
   "postinstall": "install-app-deps"

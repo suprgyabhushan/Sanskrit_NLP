@@ -10,7 +10,7 @@ exports[`test does not render if key not changed 2`] = `
   </span>
   <span>
     <span
-      className="snskrt">
+      className="sanskrit">
       <span>
         <span>
           ṛoo
@@ -26,7 +26,7 @@ exports[`test processes key text 1`] = `
   className="result-head">
   <span>
     <span
-      className="snskrt">
+      className="sanskrit">
       <span>
         <span>
           akalkana  – ka
@@ -42,7 +42,7 @@ exports[`test renders sanskrit key text 1`] = `
   className="result-head">
   <span>
     <span
-      className="snskrt">
+      className="sanskrit">
       <span>
         <span>
           aṃṣīkṇ

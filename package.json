@@ -20,7 +20,6 @@
     "dist": "build --arch all",
     "test": "jest",
     "mw-db": "util/mw_db/fill_db.sh",
-    "apte-db": "util/apte_db/fill_db.sh",
     "postinstall": "install-app-deps"
   },
   "devDependencies": {

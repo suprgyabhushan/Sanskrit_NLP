@@ -8,8 +8,6 @@ import {cyan600} from 'material-ui/styles/colors';
 
 import MWKey from './mw/HeadKey';
 import MWBody from './mw/RowBody';
-import ApteKey from './apte/HeadKey';
-import ApteBody from './apte/RowBody';
 
 const ResultList = React.createClass({
     render: function () {
@@ -28,16 +26,6 @@ const ResultList = React.createClass({
                     api={this.props.api}
                     keyComponent={MWKey}
                     bodyComponent={MWBody}
-                />;
-
-            case 'ap':
-                return <Result
-                    request={request}
-                    result={result.data}
-                    key={result.dict.code}
-                    api={this.props.api}
-                    keyComponent={ApteKey}
-                    bodyComponent={ApteBody}
                 />;
         }
     },

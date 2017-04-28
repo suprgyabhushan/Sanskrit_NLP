@@ -11,6 +11,7 @@ import itertools
 from lxml import etree
 from io import StringIO, BytesIO
 from math import log
+import json
 
 def triming(lst):
 	output = []
@@ -41,7 +42,7 @@ def createhwlist(dictname):
 	global sanhw2
 	sanhw2 = sanhw2()
 	sanhw2 = sorted(sanhw2, key=lambda x: (len(x[1]),len(x[0])), reverse=True)
-	fout = codecs.open('dicts/hwsorted.txt','w','utf-8')
+	fout = codecs.open(path + 'dicts/hwsorted.txt','w','utf-8')
 	hw = []
 	for (hword,dicts,lnums) in sanhw2:
 		if len(hword) > 1 and dictname in dicts:
@@ -58,7 +59,7 @@ def startingpatterns(words):
 		output += [word[2:x] for x in range(len(word))]
 	return output
 def readmwkey2():
-	fin = codecs.open('dicts/mw2.txt','r','utf-8')
+	fin = codecs.open(path + 'dicts/mw2.txt','r','utf-8')
 	lines = fin.readlines()
 	lines = triming(lines)
 	pairs = []
@@ -147,7 +148,6 @@ def infer_spaces(s,dictionary):
     global words
     global wordcost
     global maxword
-    #print len(words), len(wordcost), maxword
     """Uses dynamic programming to infer the location of spaces in a string
     without spaces."""
     # Build a cost dictionary, assuming Zipf's law and cost = -math.log(probability).
@@ -177,11 +177,17 @@ def infer_spaces(s,dictionary):
 if __name__=="__main__":
 	debug = 0
 	lstrep = [('A',('A','aa','aA','Aa','AA','As')),('I',('I','ii','iI','Ii','II')),('U',('U','uu','uU','Uu','UU')),('F',('F','ff','fx','xf','Fx','xF','FF')),('e',('e','ea','ai','aI','Ai','AI')),('o',('o','oa','au','aU','Au','AU','aH','aHa','as')),('E',('E','ae','Ae','aE','AE')),('O',('O','ao','Ao','aO','AO')),('ar',('af','ar')),('d',('t','d')),('H',('H','s')),('S',('S','s','H')),('M',('m','M')),('y',('y','i','I')),('N',('N','M')),('Y',('Y','M')),('R',('R','M')),('n',('n','M')),('m',('m','M')),('v',('v','u','U')),('r',('r','s','H')),]
-	dictionary = 'dicts/MW.txt'
+	global path
+	path = ''
+	if len(sys.argv) > 3:
+		path = sys.argv[3]
+	dictionary = path + 'dicts/MW.txt'
 	if len(sys.argv) > 2:
-		dictionary = 'dicts/'+sys.argv[2]+'.txt'
+		dictionary = path + 'dicts/'+sys.argv[2]+'.txt'
 	if len(sys.argv) > 1:
 		inputwords = [sys.argv[1]]
+	if len(sys.argv) == 1:
+		inputwords = [json.loads(sys.stdin.readlines()[0])]
 	global solutions
 	solutions = {}
 	if debug == 1:
@@ -202,17 +208,18 @@ if __name__=="__main__":
 	for inputword in inputwords:
 		test = infer_spaces(inputword,dictionary)
 		if any(a == inputword for (a,b) in knownpairs):
-			if len(sys.argv) == 4:
+			if len(sys.argv) == 5:
 				outfile.write(inputword+':'+inputword+':1\n')
-			print inputword, '1'
+			print json.dumps(inputword)#, '1'
+			sys.stdout.flush()
 		elif not re.search('[+]',test):
-			if len(sys.argv) == 4:
+			if len(sys.argv) == 5:
 				outfile.write(inputword+':'+inputword+':2\n')
-			print inputword, '2'
+			print json.dumps(inputword)#, '2'
+			sys.stdout.flush()
 		else:
 			perm = [inputword]
 			perm += permut(inputword,lstrep,words)
-			print len(perm)
 			output = []
 			for mem in perm:
 				split = infer_spaces(mem,dictionary)
@@ -221,15 +228,19 @@ if __name__=="__main__":
 			output = sorted(output,key=lambda x:x.count('+'))
 			output = [member for member in output if not re.search('[+][^AsmMH][+]',member) and not re.search('[+][^mMsH]{1}$',member)] # Remove the splits which have single letter members.
 			if len(output) == 1 and output == [inputword]:
-				if len(sys.argv) == 4:
+				if len(sys.argv) == 5:
 					outfile.write(inputword+':'+inputword+':3\n')
-				print inputword, '3'
+				print json.dumps(inputword)#, '3'
+				sys.stdout.flush()
 			elif len(output) == 0:
-				if len(sys.argv)==4:
+				if len(sys.argv)== 5:
 					outfile.write(inputword+':'+inputword+':4\n')
-				print inputword, '4'
+				print json.dumps(inputword)#, '4'
+				sys.stdout.flush()
 			else:
-				if len(sys.argv) == 4:
+				if len(sys.argv) == 5:
 					outfile.write(inputword+':'+output[0]+':5\n')
-				print output, '5'
+				print json.dumps(output)#, '5'
+				sys.stdout.flush()
 				#print output[0], '5'
+			sys.stdout.flush()

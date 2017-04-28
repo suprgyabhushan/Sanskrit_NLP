@@ -7,16 +7,10 @@ python split.py batchprocess/input.txt MW batchprocess/output.txt
 import sys, re
 import codecs
 import string
-import datetime
 import itertools
 from lxml import etree
 from io import StringIO, BytesIO
 from math import log
-import transcoder
-
-# Function to return timestamp
-def timestamp():
-	return datetime.datetime.now()
 
 def triming(lst):
 	output = []
@@ -25,21 +19,6 @@ def triming(lst):
 		output.append(member)
 	return output
 
-def preparation(inputfile,translit='deva'):
-	infile = codecs.open(inputfile,'r','utf-8')
-	inputwords = infile.read().split()
-	inputwords = triming(inputwords)
-	output = []
-	for word in inputwords:
-		word = transcoder.transcoder_processString(word,'deva','slp1')
-		if re.search('[^A-Za-z]',word):
-			word = re.sub('[^A-Za-z]','',word)
-			if not word == '':
-				output.append(word)
-		else:
-			output.append(word)
-	return output
-	
 def sanhw2():
 	fin = codecs.open('../CORRECTIONS/sanhw2/sanhw2.txt','r','utf-8')
 	lines = fin.readlines()
@@ -196,34 +175,29 @@ def infer_spaces(s,dictionary):
     return "+".join(reversed(out))
 
 if __name__=="__main__":
-	debug = 1
+	debug = 0
 	lstrep = [('A',('A','aa','aA','Aa','AA','As')),('I',('I','ii','iI','Ii','II')),('U',('U','uu','uU','Uu','UU')),('F',('F','ff','fx','xf','Fx','xF','FF')),('e',('e','ea','ai','aI','Ai','AI')),('o',('o','oa','au','aU','Au','AU','aH','aHa','as')),('E',('E','ae','Ae','aE','AE')),('O',('O','ao','Ao','aO','AO')),('ar',('af','ar')),('d',('t','d')),('H',('H','s')),('S',('S','s','H')),('M',('m','M')),('y',('y','i','I')),('N',('N','M')),('Y',('Y','M')),('R',('R','M')),('n',('n','M')),('m',('m','M')),('v',('v','u','U')),('r',('r','s','H')),]
-	dictionary = 'dicts/md.txt'
+	dictionary = 'dicts/MW.txt'
 	if len(sys.argv) > 2:
 		dictionary = 'dicts/'+sys.argv[2]+'.txt'
 	if len(sys.argv) > 1:
 		inputwords = [sys.argv[1]]
-	if len(sys.argv) == 4:
-		outfile = codecs.open(sys.argv[3],'w','utf-8')
-		inputwords = preparation(sys.argv[1])
 	global solutions
 	solutions = {}
 	if debug == 1:
-		print 'Reading knownpairs', timestamp()
+		print 'Reading knownpairs'
 	knownpairs = readmwkey2()
 	if debug == 1:
-		print 'Calculating costs of dictionary headwords', timestamp()
+		print 'Calculating costs of dictionary headwords'
 	words = readwords(dictionary)
-	wordcost = dict((k, log((i+1)*log(len(words)))) for i,k in enumerate(words)) 
-	#print sys.argv[2]+"cost =",
-	#print wordcost
+	wordcost = dict((k, log((i+1)*log(len(words)))) for i,k in enumerate(words))
 	if debug == 1:
-		print 'Calculated costs of dictionary headwords', timestamp()
+		print 'Calculated costs of dictionary headwords'
 	maxword = max(len(x) for x in words)
 	#print sys.argv[2]+"maxword =",
 	#print maxword
 	if debug == 1:
-		print 'Calculated maxword', timestamp()
+		print 'Calculated maxword'
 	counter = 0
 	for inputword in inputwords:
 		test = infer_spaces(inputword,dictionary)
@@ -239,7 +213,6 @@ if __name__=="__main__":
 			perm = [inputword]
 			perm += permut(inputword,lstrep,words)
 			print len(perm)
-			print timestamp()
 			output = []
 			for mem in perm:
 				split = infer_spaces(mem,dictionary)
@@ -258,7 +231,5 @@ if __name__=="__main__":
 			else:
 				if len(sys.argv) == 4:
 					outfile.write(inputword+':'+output[0]+':5\n')
-				print output[0:5], '5'
+				print output, '5'
 				#print output[0], '5'
-	if debug == 1:
-		print timestamp()
